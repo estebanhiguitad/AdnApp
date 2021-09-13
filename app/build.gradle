@@ -48,6 +48,16 @@ jacoco {
     reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir"))
 }
 
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+    finalizedBy(jacocoTestReport)
+}
+
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
     reports {
