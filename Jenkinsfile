@@ -12,7 +12,7 @@ pipeline {
 
 
   tools {
-    jdk 'JDK8_Mac' //Versión preinstalada en la Configuración del Master
+    jdk 'JDK11_Mac' //Versión preinstalada en la Configuración del Master
   }
 
   stages{
