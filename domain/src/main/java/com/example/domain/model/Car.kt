@@ -1,14 +1,16 @@
 package com.example.domain.model
 
+import java.util.*
+
 data class Car(
     override var id: String,
-    override var licencePlate: String,
-    override var entryDate: String,
-    override var departureDate: String,
+    override var licensePlate: String,
+    override var entryDate: Calendar,
+    override var departureDate: Calendar?,
     override var type: String
 ) : Vehicle(
     id,
-    licencePlate, entryDate,
+    licensePlate, entryDate,
     departureDate,
     type
 ) {

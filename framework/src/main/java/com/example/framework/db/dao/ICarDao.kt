@@ -17,12 +17,12 @@ interface ICarDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCar(car: CarEntity)
 
-    @Query( "DELETE FROM CarEntity WHERE licencePlate = :licencePlate")
-    fun deleteCar (licencePlate : String)
+    @Query( "DELETE FROM CarEntity WHERE licensePlate = :licensePlate")
+    fun deleteCar (licensePlate : String)
 
-    @Query("SELECT * FROM CarEntity WHERE licencePlate = :licencePlate")
-    fun getCar (licencePlate: String) : CarEntity
+    @Query("SELECT * FROM CarEntity WHERE licensePlate = :licensePlate")
+    fun getCar (licensePlate: String) : CarEntity
 
-    @Query( "SELECT COUNT(*) FROM CarEntity WHERE licencePlate = :licencePlate")
-    fun countCarByLicence(licencePlate: String): Int
+    @Query( "SELECT COUNT(*) FROM CarEntity WHERE type = :licensePlate")
+    fun countCarByLicence(licensePlate: String): Int
 }

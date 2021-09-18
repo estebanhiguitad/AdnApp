@@ -15,12 +15,12 @@ interface IMotorcycleDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMotorcycle(motorcycle: MotorcycleEntity)
 
-    @Query ( "DELETE FROM MotorcycleEntity WHERE licencePlate = :licencePlate")
-    fun deleteMotorcycle (licencePlate : String)
+    @Query ( "DELETE FROM MotorcycleEntity WHERE licensePlate = :licensePlate")
+    fun deleteMotorcycle (licensePlate : String)
 
-    @Query("SELECT * FROM MotorcycleEntity WHERE licencePlate = :licencePlate")
-    fun getMotorcycle (licencePlate: String): MotorcycleEntity
+    @Query("SELECT * FROM MotorcycleEntity WHERE licensePlate = :licensePlate")
+    fun getMotorcycle (licensePlate: String): MotorcycleEntity
 
-    @Query( "SELECT COUNT(*) FROM MotorcycleEntity WHERE licencePlate = :licencePlate")
-    fun countMotorcycleByLicence(licencePlate: String): Int
+    @Query( "SELECT COUNT(*) FROM MotorcycleEntity WHERE licensePlate = :licensePlate")
+    fun countMotorcycleByLicence(licensePlate: String): Int
 }
