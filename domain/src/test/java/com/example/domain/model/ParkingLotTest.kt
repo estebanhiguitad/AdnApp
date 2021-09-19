@@ -28,21 +28,21 @@ class ParkingLotTest {
     lateinit var parkingLot: ParkingLot
 
     private val car: Vehicle = Car(
-        "1",
+        1,
         "ABD123",
         Calendar.getInstance(), null,
         TYPE_CAR
     )
 
     private val car2: Vehicle = Car(
-        "2",
+        2,
         "BBD123",
         Calendar.getInstance(), null,
         TYPE_CAR
     )
 
     private val motorcycle: Vehicle = Motorcycle(
-        "2",
+        2,
         "AGG22",
         Calendar.getInstance(), null,
         "300",

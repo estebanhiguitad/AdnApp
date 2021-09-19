@@ -26,7 +26,7 @@ class CheckOutTest {
     lateinit var checkOut : CheckOut
 
     private val car: Vehicle = Car(
-        "1",
+        1,
         "ABD123",
         Calendar.getInstance(), null,
         TYPE_CAR

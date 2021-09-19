@@ -29,14 +29,14 @@ class VehicleRepositoryTest {
     private lateinit var repository: VehicleRepository
 
     private val car: Vehicle = Car(
-        "1",
+        1,
         "ABD123",
         Calendar.getInstance(), null,
         TYPE_CAR
     )
 
     private val motorcycle: Vehicle = Motorcycle(
-        "2",
+        2,
         "AGG22",
         Calendar.getInstance(), null,
         "300",

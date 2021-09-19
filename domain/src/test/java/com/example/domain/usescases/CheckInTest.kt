@@ -24,7 +24,7 @@ class CheckInTest {
     lateinit var checkIn : CheckIn
 
     private val car: Vehicle = Car(
-        "1",
+        1,
         "ABD123",
         Calendar.getInstance(), null,
         TYPE_CAR
