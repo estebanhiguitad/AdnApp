@@ -9,5 +9,14 @@
         android:id="@+id/vehiclesFragment"
         android:name="com.example.adnapp.fragment.VehiclesFragment"
         android:label="fragment_vehicles"
-        tools:layout="@layout/fragment_vehicles" />
+        tools:layout="@layout/fragment_vehicles" >
+        <action
+            android:id="@+id/action_vehiclesFragment_to_checkInDialogFragment"
+            app:destination="@id/checkInDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkInDialogFragment"
+        android:name="com.example.adnapp.fragment.CheckInDialogFragment"
+        android:label="fragment_check_in_dialog_list_dialog"
+        tools:layout="@layout/fragment_check_in_dialog_list_dialog" />
 </navigation>

@@ -5,7 +5,7 @@ import java.util.*
 const val TYPE_CAR = "car"
 const val TYPE_MOTORCYCLE = "motorcycle"
 open class Vehicle(
-    open var id: String,
+    open var id: Int?,
     open var licensePlate : String,
     open var entryDate : Calendar,
     open var departureDate : Calendar?,

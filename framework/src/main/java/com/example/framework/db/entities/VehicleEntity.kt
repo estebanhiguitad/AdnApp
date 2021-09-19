@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 abstract class VehicleEntity(
-    @PrimaryKey open var id: String,
+    @PrimaryKey(autoGenerate = true) open var id: Int?,
     open var licensePlate: String,
     open var entryDate: String,
     open var departureDate: String?,

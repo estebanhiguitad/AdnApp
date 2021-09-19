@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity
 data class MotorcycleEntity(
-    @PrimaryKey override var id: String,
+    @PrimaryKey(autoGenerate = true) override var id: Int?,
     override var licensePlate: String,
     override var entryDate: String,
     override var departureDate: String?,

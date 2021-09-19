@@ -3,7 +3,7 @@ package com.example.domain.model
 import java.util.*
 
 data class Motorcycle(
-    override var id: String,
+    override var id: Int?,
     override var licensePlate: String,
     override var entryDate: Calendar,
     override var departureDate: Calendar?,

@@ -38,20 +38,27 @@
                 android:layout_height="40dp"
                 android:layout_gravity="top"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/ic_parking"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            style="@style/Widget.MaterialComponents.TabLayout.Colored"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabRippleColor="@color/colorPrimary"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            style="@style/Widget.MaterialComponents.TabLayout.Colored">
 
-        </com.google.android.material.tabs.TabLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="VEHICLES"
+                android:gravity="center"
+                android:textSize="18sp"
+                />
+
+        </LinearLayout>
+
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
