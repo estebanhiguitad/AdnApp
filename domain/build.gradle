@@ -5,6 +5,10 @@ plugins {
     id 'jacoco'
 }
 
+jacoco {
+    toolVersion  "$jacocoVersion"
+}
+
 android {
     compileSdk 31
 
