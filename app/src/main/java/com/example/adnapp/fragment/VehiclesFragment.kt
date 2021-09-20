@@ -10,15 +10,17 @@ import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.adnapp.databinding.FragmentVehiclesBinding
+import com.example.adnapp.view.adapters.IOnClickItemList
 import com.example.adnapp.view.adapters.VehicleAdapter
 import com.example.adnapp.viewmodel.VehiclesViewModel
 import com.example.adnapp.viewmodel.VehiclesViewState
+import com.example.domain.model.Vehicle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
 @AndroidEntryPoint
-class VehiclesFragment : Fragment(), ICallBackCheckInFragment {
+class VehiclesFragment : Fragment(), ICallBackCheckInFragment, IOnClickItemList {
 
     private lateinit var binding: FragmentVehiclesBinding
     private lateinit var adapter: VehicleAdapter
@@ -33,7 +35,7 @@ class VehiclesFragment : Fragment(), ICallBackCheckInFragment {
     ): View {
         binding = FragmentVehiclesBinding.inflate(inflater,container,false)
         val view = binding.root
-        adapter = VehicleAdapter()
+        adapter = VehicleAdapter(this)
         binding.recyclerVehicles.adapter = adapter
         viewModel.getVehicles().observe(requireActivity(), Observer(::updateUi))
         return view
@@ -75,6 +77,11 @@ class VehiclesFragment : Fragment(), ICallBackCheckInFragment {
                 .show()
         }
         onResume()
+    }
+
+    override fun onClickItem(vehicle: Vehicle) {
+        val modalBottomSheet = CheckOutDialogFragment(callbackModal,vehicle)
+        modalBottomSheet.show(childFragmentManager,CheckOutDialogFragment.TAG)
     }
 
 }
