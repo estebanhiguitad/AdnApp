@@ -1,5 +1,6 @@
 package com.example.adnapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ import com.example.framework.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
+import java.io.Console
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -47,7 +49,6 @@ class CheckInViewModel @Inject constructor(
                 if(available) checkIn.invoke(vehicle)
                 else response = "Capacity is full"
             }catch (e: Exception){
-                println(e.message)
                 response = when (e){
                     is VehicleAreadyExistException -> "Vehicle already exist"
                     is EntryDeniedException -> "Entry denied"

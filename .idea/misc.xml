@@ -5,6 +5,9 @@
       <map>
         <entry key="app/src/main/res/drawable/launch_screen.xml" value="0.19947916666666668" />
         <entry key="app/src/main/res/drawable/vc_dashboard.xml" value="0.19947916666666668" />
+        <entry key="app/src/main/res/layout-land/fragment_check_in_dialog_list_dialog.xml" value="0.15079365079365079" />
+        <entry key="app/src/main/res/layout-land/fragment_check_out_dialog.xml" value="0.15079365079365079" />
+        <entry key="app/src/main/res/layout-land/fragment_vehicles.xml" value="0.15079365079365079" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/fragment_check_in_dialog_list_dialog.xml" value="0.31927083333333334" />
