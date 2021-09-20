@@ -6,24 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.data.exceptions.EntryDeniedException
 import com.example.domain.data.exceptions.VehicleAreadyExistException
-import com.example.domain.model.Car
 import com.example.domain.model.INITIAL_PARKING_TIME
 import com.example.domain.model.ParkingLot
 import com.example.domain.model.Vehicle
 import com.example.domain.model.debtcollector.CarDebtCollector
 import com.example.domain.model.debtcollector.MotorcycleDebtCollector
+import com.example.domain.usecases.CheckCapacity
 import com.example.domain.usecases.CheckIn
 import com.example.framework.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
-import java.io.Console
 import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class CheckInViewModel @Inject constructor(
     private val checkIn: CheckIn,
+    private val checkCapacity: CheckCapacity,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -43,7 +43,9 @@ class CheckInViewModel @Inject constructor(
                     MotorcycleDebtCollector(INITIAL_PARKING_TIME)
                 )
                 parkingLot.validateCheckIn(vehicle)
-                checkIn.invoke(vehicle)
+                val available = checkCapacity.invoke(vehicle.type)
+                if(available) checkIn.invoke(vehicle)
+                else response = "Capacity is full"
             }catch (e: Exception){
                 println(e.message)
                 response = when (e){
