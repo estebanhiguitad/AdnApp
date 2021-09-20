@@ -8,8 +8,8 @@ import java.util.*
 
 const val CAPACITY_MOTORCYLE: Int = 20
 const val CAPACITY_CAR: Int = 10
+const val INITIAL_PARKING_TIME : Int = 9
 class ParkingLot (private  val carDebtCollector: CarDebtCollector, private val motorcycleDebtCollector: MotorcycleDebtCollector) {
-    private val initialParkingTime : Int = 9
     private val forbiddenExceptMondayAndSunday : Char = 'A'
 
     fun getTotalPrice(vehicle: Vehicle): Double {
@@ -22,7 +22,7 @@ class ParkingLot (private  val carDebtCollector: CarDebtCollector, private val m
 
     fun validateCheckIn (vehicle: Vehicle) {
         val dayOfWeek = Calendar.DAY_OF_WEEK
-        if (vehicle.licensePlate.lowercase().startsWith(forbiddenExceptMondayAndSunday.lowercaseChar()) && dayOfWeek in 1..2){
+        if (vehicle.licensePlate.lowercase().startsWith(forbiddenExceptMondayAndSunday.lowercaseChar()) && (dayOfWeek == Calendar.MONDAY || dayOfWeek == Calendar.SUNDAY)){
             throw EntryDeniedException()
         }
     }

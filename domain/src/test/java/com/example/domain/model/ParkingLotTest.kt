@@ -3,6 +3,7 @@ package com.example.domain.model
 import com.example.domain.data.exceptions.EntryDeniedException
 import com.example.domain.model.debtcollector.CarDebtCollector
 import com.example.domain.model.debtcollector.MotorcycleDebtCollector
+import junit.framework.Assert.fail
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -75,7 +76,7 @@ class ParkingLotTest {
             parkingLot.validateCheckIn(car2)
             Assert.assertTrue(true)
         }catch (e: Exception){
-            Assert.assertTrue(false)
+            fail()
         }
     }
 

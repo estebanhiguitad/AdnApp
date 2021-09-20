@@ -7,7 +7,7 @@ import com.example.domain.model.Vehicle
 open class DebtCollector ( private val initialParkingTime : Int) {
 
     fun getParkedHours (vehicle: Vehicle) :Int{
-        return ((vehicle.departureDate?.timeInMillis ?: 0) - vehicle.entryDate.timeInMillis).toInt()
+        return (((vehicle.departureDate?.timeInMillis ?: 0) - vehicle.entryDate.timeInMillis) /3600000).toInt()
     }
 
     fun getTotalPrice (hourPrice: Double, dayPrice: Double, parkerHours: Int): Double{

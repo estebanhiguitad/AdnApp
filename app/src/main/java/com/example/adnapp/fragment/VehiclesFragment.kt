@@ -69,7 +69,11 @@ class VehiclesFragment : Fragment(), ICallBackCheckInFragment {
         }
     }
 
-    override fun refreshView() {
+    override fun refreshView(response:String) {
+        view?.let {
+            Snackbar.make(it, response, Snackbar.LENGTH_SHORT)
+                .show()
+        }
         onResume()
     }
 

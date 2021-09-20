@@ -1,5 +1,5 @@
 package com.example.adnapp.fragment
 
 interface ICallBackCheckInFragment {
-    fun refreshView ()
+    fun refreshView (response: String)
 }

@@ -23,6 +23,6 @@ interface ICarDao {
     @Query("SELECT * FROM CarEntity WHERE licensePlate = :licensePlate")
     fun getCar (licensePlate: String) : CarEntity
 
-    @Query( "SELECT COUNT(*) FROM CarEntity WHERE type = :licensePlate")
+    @Query( "SELECT COUNT(*) FROM CarEntity WHERE licensePlate = :licensePlate")
     fun countCarByLicence(licensePlate: String): Int
 }

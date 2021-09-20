@@ -12,6 +12,8 @@ import com.example.adnapp.databinding.FragmentCheckInDialogListDialogBinding
 import com.example.adnapp.viewmodel.CheckInViewModel
 import com.example.adnapp.viewmodel.CheckInViewState
 import com.example.adnapp.viewmodel.VehiclesViewState
+import com.example.domain.data.exceptions.InvalidDataException
+import com.example.domain.data.exceptions.VehicleTypeNotExistException
 import com.example.domain.model.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,13 +48,16 @@ class CheckInDialogFragment(private val callback: ICallBackCheckInFragment) : Bo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.checkIn.setOnClickListener(View.OnClickListener {
-            //try {
+            try {
                 viewModel.checkIn().observe(requireActivity(), Observer(::updateUi))
                 viewModel.checkInResponse(getVehicleFromView())
-            //}catch (e : Exception){
-             //   println(e.message)
-              //  Snackbar.make(view, "Please Check all form", Snackbar.LENGTH_SHORT).show()
-           // }
+            }catch (e : Exception){
+                when (e){
+                    is InvalidDataException -> callback.refreshView("Please check all form")
+                    else -> callback.refreshView("Ups, and error was occurred")
+                }
+                dismiss()
+            }
         })
         binding.typeCar.setOnClickListener(View.OnClickListener {
             binding.layoutCylinder.visibility = View.GONE
@@ -67,14 +72,10 @@ class CheckInDialogFragment(private val callback: ICallBackCheckInFragment) : Bo
         when (checkInViewState) {
             is CheckInViewState.Success -> {
                 val response = checkInViewState.response
-                view?.let {
-                    Snackbar.make(it, response, Snackbar.LENGTH_SHORT)
-                        .show()
-                }
-                callback.refreshView()
-                onDestroyView()
+                callback.refreshView(response)
+                dismiss()
             }
-            CheckInViewState.Loading -> Log.d("CHECK", "Loading...")
+            is CheckInViewState.Loading -> Log.d("CHECK", "Loading...")
 
         }
 
@@ -94,10 +95,10 @@ class CheckInDialogFragment(private val callback: ICallBackCheckInFragment) : Bo
             }else (if( type == TYPE_MOTORCYCLE){
                 Motorcycle(null,licensePlate, entryDate,null,cylinderCapacity,type)
             }else{
-                throw Exception()
+                throw VehicleTypeNotExistException()
             }) as Vehicle
         }else{
-            throw Exception ()
+            throw InvalidDataException ()
         }
         return vehicle
     }
