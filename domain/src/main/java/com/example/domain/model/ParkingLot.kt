@@ -22,7 +22,7 @@ class ParkingLot (private  val carDebtCollector: CarDebtCollector, private val m
 
     fun validateCheckIn (vehicle: Vehicle) {
         val dayOfWeek = Calendar.DAY_OF_WEEK
-        if (vehicle.licensePlate.lowercase().startsWith(forbiddenExceptMondayAndSunday.lowercaseChar()) && (dayOfWeek == Calendar.MONDAY || dayOfWeek == Calendar.SUNDAY)){
+        if (vehicle.licensePlate.lowercase().startsWith(forbiddenExceptMondayAndSunday.lowercaseChar()) && (dayOfWeek != Calendar.MONDAY || dayOfWeek != Calendar.SUNDAY)){
             throw EntryDeniedException()
         }
     }

@@ -27,9 +27,17 @@ class VehicleAdapter constructor( private val onClick:IOnClickItemList) : Recycl
     override fun getItemCount(): Int = vehicles.size
 
     class ViewHolder (private val binding: ItemVehicleBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind (vehicle: Vehicle, onClick: IOnClickItemList){
+        fun bind(vehicle: Vehicle, onClick: IOnClickItemList) {
+            val entryDate = Calendar.getInstance()
+            entryDate.timeInMillis = vehicle.entryDate.timeInMillis
+            val entryDateFormat: String =
+                entryDate.get(Calendar.YEAR).toString() + "-" + entryDate.get(Calendar.MONTH)
+                    .toString() + "-" + entryDate.get(Calendar.DAY_OF_MONTH)
+                    .toString() + ":" + entryDate.get(Calendar.HOUR_OF_DAY)
+                    .toString() + " - " + entryDate.get(Calendar.MINUTE).toString()
             binding.titleVehicle.text = vehicle.type
-            binding.entryDate.text = vehicle.mapDate(vehicle.entryDate)
+            //binding.entryDate.text = vehicle.mapDate(vehicle.entryDate)
+            binding.entryDate.text = entryDateFormat
             binding.licensePlate.text = vehicle.licensePlate
             binding.checkOut.setOnClickListener(View.OnClickListener {
                 vehicle.departureDate = Calendar.getInstance()
