@@ -1,16 +1,13 @@
 package com.example.domain.model
 
 import com.example.domain.model.debtcollector.CarDebtCollector
-import com.example.domain.model.debtcollector.MotorcycleDebtCollector
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class CarDebtCollectorTest {
 
     private val carDebtCollector: CarDebtCollector = CarDebtCollector(

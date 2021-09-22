@@ -6,7 +6,6 @@ import com.example.domain.data.exceptions.VehicleTypeNotExistException
 import com.example.domain.data.repositories.VehicleRepository
 import com.example.domain.data.sources.ILocalSource
 import com.example.domain.model.*
-import com.ibm.icu.impl.Assert.fail
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
@@ -15,11 +14,9 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class VehicleRepositoryTest {
 
     @Mock
@@ -45,237 +42,185 @@ class VehicleRepositoryTest {
 
     private val vehicles = listOf(car,motorcycle)
 
-    @Test
-    fun checkInWhenVehicleCarExist (){
-        val licensePlate = "ABD123"
-        runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(true)
-            try {
-                repository.checkIn(car)
-            }catch (e: Exception){
-                Assert.assertTrue(e is VehicleAreadyExistException)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
-            Mockito.verify(localSource,Mockito.times(0)).saveVehicle(car)
-
-        }
-    }
 
     @Test
-    fun checkInWhenVehicleMotorcycleExist (){
-        val licensePlate = "AGG22"
+    fun checkIn_whenVehicleIsCar_OkResult(){
+        //Arrange
         runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(true)
-            try {
-                repository.checkIn(motorcycle)
-            }catch (e: Exception){
-                Assert.assertTrue(e is VehicleAreadyExistException)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
-            Mockito.verify(localSource,Mockito.times(0)).saveVehicle(motorcycle)
-
-        }
-    }
-
-    @Test
-    fun checkInWhenVehicleCarNotExist(){
-        val licensePlate = "ABD123"
-        runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(false)
-            try {
-                repository.checkIn(car)
-                Assert.assertTrue(true)
-            }catch (e: Exception){
-                Assert.assertTrue(false)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
+            //Act
+            repository.checkIn(car)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).saveVehicle(car)
-
         }
     }
 
     @Test
-    fun checkInWhenVehicleMotorcycleNotExist(){
-        val licensePlate = "AGG22"
+    fun checkIn_whenVehicleIsMotorcycle_OkResult(){
+        //Arrange
         runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(false)
-            try {
-                repository.checkIn(motorcycle)
-                Assert.assertTrue(true)
-            }catch (e: Exception){
-                Assert.assertTrue(false)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
+            //Act
+            repository.checkIn(motorcycle)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).saveVehicle(motorcycle)
-
         }
     }
 
-    @Test
-    fun checkOutWhenVehicleCarExist(){
-        val licensePlate = "ABD123"
-        runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(true)
-            try {
-                repository.checkOut(car)
-                Assert.assertTrue(true)
-            }catch (e: Exception){
-                Assert.assertTrue(false)
-            }
 
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
+    @Test
+    fun checkOut_whenVehicleIsCar_OkResult(){
+        //Arrange
+        runBlocking {
+            //Act
+            repository.checkOut(car)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).deleteVehicle(car)
-
         }
     }
 
     @Test
-    fun checkOutWhenVehicleMotorcycleExist(){
-        val licensePlate = "AGG22"
+    fun checkOut_whenVehicleIsMotorcycle_OkResult(){
+        //Arrange
         runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(true)
-            try {
-                repository.checkOut(motorcycle)
-                Assert.assertTrue(true)
-            }catch (e: Exception){
-                Assert.assertTrue(false)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
+            //Act
+            repository.checkOut(motorcycle)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).deleteVehicle(motorcycle)
-
         }
     }
 
-    @Test
-    fun checkOutWhenVehicleCarNotExist(){
-        val licensePlate = "ABD123"
-        runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(false)
-            try {
-                repository.checkOut(car)
-            }catch (e: Exception){
-                Assert.assertTrue(e is VehicleNotExistException)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
-            Mockito.verify(localSource,Mockito.times(0)).deleteVehicle(car)
-
-        }
-    }
 
     @Test
-    fun checkOutWhenVehicleMotorcycleNotExist(){
-        val licensePlate = "AGG22"
-        runBlocking {
-            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(false)
-            try {
-                repository.checkOut(motorcycle)
-            }catch (e: Exception){
-                Assert.assertTrue(e is VehicleNotExistException)
-            }
-
-            Mockito.verify(localSource,Mockito.times(1)).vehicleExist(licensePlate)
-            Mockito.verify(localSource,Mockito.times(0)).deleteVehicle(motorcycle)
-
-        }
-    }
-
-    @Test
-    fun checkCapacityWhenTypeIsMotorcycleAndNotExceed(){
+    fun checkCapacity_whenTypeIsMotorcycle_okResult(){
+        //Arrange
         val type = TYPE_MOTORCYCLE
         val cantVehicles = CAPACITY_MOTORCYLE - 2
         runBlocking {
             Mockito.`when`(localSource.getNumberVehicles(type)).thenReturn(cantVehicles)
+            //Act
             val result = repository.checkCapacity(type)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).getNumberVehicles(type)
-            Assert.assertEquals(true,result)
+            Assert.assertEquals(18,result)
         }
     }
 
     @Test
-    fun checkCapacityWhenTypeIsMotorcycleAndExceed(){
-        val type = TYPE_MOTORCYCLE
-        val cantVehicles = CAPACITY_MOTORCYLE + 2
-        runBlocking {
-            Mockito.`when`(localSource.getNumberVehicles(type)).thenReturn(cantVehicles)
-            val result = repository.checkCapacity(type)
-            Mockito.verify(localSource,Mockito.times(1)).getNumberVehicles(type)
-            Assert.assertEquals(false,result)
-        }
-    }
-
-    @Test
-    fun checkCapacityWhenTypeIsCarAndNotExceed(){
+    fun checkCapacity_whenTypeIsCar_okResult(){
+        //Arrange
         val type = TYPE_CAR
         val cantVehicles = CAPACITY_CAR - 2
         runBlocking {
             Mockito.`when`(localSource.getNumberVehicles(type)).thenReturn(cantVehicles)
+            //Act
             val result = repository.checkCapacity(type)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).getNumberVehicles(type)
-            Assert.assertEquals(true,result)
+            Assert.assertEquals(8,result)
         }
     }
 
     @Test
-    fun checkCapacityWhenTypeIsCarAndExceed(){
-        val type = TYPE_CAR
-        val cantVehicles = CAPACITY_CAR + 2
+    fun checkCapacity_whenTypeNotExist_exceptionResult(){
+        //Arrange
+        val type = "NONE"
+        val cantVehicles = CAPACITY_CAR - 2
         runBlocking {
             Mockito.`when`(localSource.getNumberVehicles(type)).thenReturn(cantVehicles)
-            val result = repository.checkCapacity(type)
-            Mockito.verify(localSource,Mockito.times(1)).getNumberVehicles(type)
-            Assert.assertEquals(false,result)
-        }
-    }
-
-    @Test
-    fun checkCapacityWhenTypeNotExist(){
-        val type = "NOEXIST"
-        runBlocking {
             try {
+                //Act
                 repository.checkCapacity(type)
             }catch (e: Exception){
+                //Assert
                 Assert.assertTrue(e is VehicleTypeNotExistException)
             }
-            Mockito.verify(localSource,Mockito.times(0)).getNumberVehicles(type)
+            Mockito.verify(localSource,Mockito.times(1)).getNumberVehicles(type)
         }
     }
 
     @Test
-    fun getVehicles (){
+    fun vehicleExist_whenLicensePlateExist_trueResult(){
+        //Arrange
+        val licensePlate = "ABD123"
         runBlocking {
-            Mockito.`when`(localSource.getVehicles()).thenReturn(vehicles)
-            val response = repository.getVehicles()
-            Mockito.verify(localSource,Mockito.times(1)).getVehicles()
-            Assert.assertEquals(vehicles,response)
+            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(true)
+            //Act
+            val response = repository.vehicleExist(licensePlate)
+            //Assert
+            Assert.assertTrue(response)
         }
     }
 
     @Test
-    fun getVehicleCar (){
+    fun vehicleExist_whenLicensePlateNotExist_falseResult(){
+        //Arrange
+        val licensePlate = "ABD123"
+        runBlocking {
+            Mockito.`when`(localSource.vehicleExist(licensePlate)).thenReturn(false)
+            //Act
+            val response = repository.vehicleExist(licensePlate)
+            //Assert
+            Assert.assertEquals(false,response)
+        }
+    }
+
+
+    @Test
+    fun getVehicle_whenLicensePlateExist_carResult (){
+        //Arrange
         val licensePlate = "ABD123"
         runBlocking {
             Mockito.`when`(localSource.getVehicle(licensePlate)).thenReturn(car)
+            //Act
             val response = repository.getVehicle(licensePlate)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).getVehicle(licensePlate)
             Assert.assertEquals(car,response)
         }
     }
 
     @Test
-    fun getVehicleMotorcycle (){
+    fun getVehicle_whenLicensePlateExist_motorcycleResult (){
+        //Arrange
         val licensePlate = "AGG22"
         runBlocking {
             Mockito.`when`(localSource.getVehicle(licensePlate)).thenReturn(motorcycle)
+            //Act
             val response = repository.getVehicle(licensePlate)
+            //Assert
             Mockito.verify(localSource,Mockito.times(1)).getVehicle(licensePlate)
             Assert.assertEquals(motorcycle,response)
         }
     }
 
+    @Test
+    fun getVehicle_whenLicensePlateNotExist_ExceptionResult (){
+        //Arrange
+        val licensePlate = "AGG22"
+        runBlocking {
+            Mockito.`when`(localSource.getVehicle(licensePlate)).thenReturn(null)
+            //Act
+            try{
+                repository.getVehicle(licensePlate)
+            }catch (e : Exception){
+                Assert.assertTrue(e is VehicleNotExistException)
+            }
+
+            //Assert
+            Mockito.verify(localSource,Mockito.times(1)).getVehicle(licensePlate)
+
+        }
+    }
+
+    @Test
+    fun getVehicles (){
+        //Arrange
+        runBlocking {
+            Mockito.`when`(localSource.getVehicles()).thenReturn(vehicles)
+            //Act
+            val response = repository.getVehicles()
+            //Assert
+            Mockito.verify(localSource,Mockito.times(1)).getVehicles()
+            Assert.assertEquals(vehicles,response)
+        }
+    }
 }

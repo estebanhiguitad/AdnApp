@@ -5,13 +5,9 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
-import java.lang.AssertionError
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class MotorcycleDebtCollectorTest {
 
     private val motorcycleDebtCollector: MotorcycleDebtCollector = MotorcycleDebtCollector(

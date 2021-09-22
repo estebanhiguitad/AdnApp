@@ -1,10 +1,10 @@
-package com.example.framework.di
+package com.example.framework.dependencyinjection
 
 import android.app.Application
 import androidx.room.Room
-import com.example.framework.db.ParkingDB
-import com.example.framework.db.dao.ICarDao
-import com.example.framework.db.dao.IMotorcycleDao
+import com.example.framework.database.ParkingDB
+import com.example.framework.database.dao.ICarDao
+import com.example.framework.database.dao.IMotorcycleDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

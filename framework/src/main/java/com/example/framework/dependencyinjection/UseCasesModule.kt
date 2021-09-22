@@ -1,4 +1,4 @@
-package com.example.framework.di
+package com.example.framework.dependencyinjection
 
 import com.example.domain.data.repositories.IVehicleRepository
 import com.example.domain.usecases.CheckCapacity

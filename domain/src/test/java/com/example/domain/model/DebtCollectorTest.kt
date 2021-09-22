@@ -1,22 +1,20 @@
 package com.example.domain.model
 
-import com.example.domain.model.debtcollector.CarDebtCollector
+
 import com.example.domain.model.debtcollector.DAILY_VALUE_CAR
 import com.example.domain.model.debtcollector.DebtCollector
 import com.example.domain.model.debtcollector.HOURLY_VALUE_CAR
+import com.example.domain.model.debtcollector.MotorcycleDebtCollector
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class DebtCollectorTest {
 
-    private val debtCollector: DebtCollector = DebtCollector(
-        INITIAL_PARKING_TIME)
+    private val debtCollector: DebtCollector = MotorcycleDebtCollector(INITIAL_PARKING_TIME)
 
 
     @Test

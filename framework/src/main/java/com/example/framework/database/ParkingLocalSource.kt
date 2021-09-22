@@ -1,14 +1,14 @@
-package com.example.framework.db
+package com.example.framework.database
 
 import com.example.domain.data.exceptions.VehicleClassNotExistException
 import com.example.domain.data.exceptions.VehicleNotExistException
 import com.example.domain.data.exceptions.VehicleTypeNotExistException
 import com.example.domain.data.sources.ILocalSource
 import com.example.domain.model.*
-import com.example.framework.db.dao.ICarDao
-import com.example.framework.db.dao.IMotorcycleDao
-import com.example.framework.db.entities.CarEntity
-import com.example.framework.db.entities.MotorcycleEntity
+import com.example.framework.database.dao.ICarDao
+import com.example.framework.database.dao.IMotorcycleDao
+import com.example.framework.database.entities.CarEntity
+import com.example.framework.database.entities.MotorcycleEntity
 
 class ParkingLocalSource (private val carDao: ICarDao, private val motorcycleDao : IMotorcycleDao): ILocalSource {
 
@@ -17,19 +17,11 @@ class ParkingLocalSource (private val carDao: ICarDao, private val motorcycleDao
     }
 
     override suspend fun saveVehicle(vehicle: Vehicle) {
-       when(vehicle){
-           is Motorcycle -> motorcycleDao.insertMotorcycle(MotorcycleEntity(vehicle))
-           is Car -> carDao.insertCar(CarEntity(vehicle))
-           else -> throw VehicleClassNotExistException()
-       }
+        getTypeOfVehicle(vehicle.type).saveVehicle(vehicle)
     }
 
     override suspend fun deleteVehicle(vehicle: Vehicle) {
-        when(vehicle){
-            is Motorcycle -> motorcycleDao.deleteMotorcycle(vehicle.licensePlate)
-            is Car -> carDao.deleteCar(vehicle.licensePlate)
-            else -> throw VehicleClassNotExistException()
-        }
+        getTypeOfVehicle(vehicle.type).deleteVehicle(vehicle)
     }
 
     override suspend fun getVehicle(licensePlate: String): Vehicle {
@@ -48,9 +40,13 @@ class ParkingLocalSource (private val carDao: ICarDao, private val motorcycleDao
     }
 
     override suspend fun getNumberVehicles(type:String): Int {
-        return when (type) {
-            TYPE_CAR -> carDao.getCountCar()
-            TYPE_MOTORCYCLE -> motorcycleDao.getCountMotorcycle()
+       return getTypeOfVehicle(type).getNumberVehicles(type)
+    }
+
+     private fun getTypeOfVehicle (type:String):IVehicleSource{
+        return when(type){
+            TYPE_MOTORCYCLE -> MotorcycleLocalSource(motorcycleDao)
+            TYPE_CAR -> CarLocalSource(carDao)
             else -> throw VehicleTypeNotExistException()
         }
     }

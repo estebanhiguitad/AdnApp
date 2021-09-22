@@ -1,6 +1,5 @@
 package com.example.adnapp.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +13,10 @@ import com.example.domain.model.debtcollector.CarDebtCollector
 import com.example.domain.model.debtcollector.MotorcycleDebtCollector
 import com.example.domain.usecases.CheckCapacity
 import com.example.domain.usecases.CheckIn
-import com.example.framework.di.IoDispatcher
+import com.example.framework.dependencyinjection.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
-import java.io.Console
 import java.lang.Exception
 import javax.inject.Inject
 

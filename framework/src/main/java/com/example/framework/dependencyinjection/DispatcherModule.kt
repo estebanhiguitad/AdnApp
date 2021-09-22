@@ -1,4 +1,4 @@
-package com.example.framework.di
+package com.example.framework.dependencyinjection
 
 import dagger.Module
 import dagger.Provides

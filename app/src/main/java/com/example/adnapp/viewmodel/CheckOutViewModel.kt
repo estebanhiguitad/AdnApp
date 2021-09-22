@@ -1,12 +1,9 @@
 package com.example.adnapp.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.data.exceptions.EntryDeniedException
-import com.example.domain.data.exceptions.VehicleAreadyExistException
 import com.example.domain.data.exceptions.VehicleClassNotExistException
 import com.example.domain.data.exceptions.VehicleNotExistException
 import com.example.domain.model.INITIAL_PARKING_TIME
@@ -15,7 +12,7 @@ import com.example.domain.model.Vehicle
 import com.example.domain.model.debtcollector.CarDebtCollector
 import com.example.domain.model.debtcollector.MotorcycleDebtCollector
 import com.example.domain.usecases.CheckOut
-import com.example.framework.di.IoDispatcher
+import com.example.framework.dependencyinjection.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch

@@ -8,7 +8,6 @@ import com.example.domain.model.debtcollector.CarDebtCollector
 import com.example.domain.model.debtcollector.MotorcycleDebtCollector
 import com.example.domain.usecases.CheckCapacity
 import com.example.domain.usecases.CheckIn
-import junit.framework.Assert.fail
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -52,7 +51,7 @@ class CheckInViewModelTest {
 
     private val car: Vehicle = Car(
         1,
-        "ABD123",
+        "PBD123",
         Calendar.getInstance(), null,
         TYPE_CAR
     )
@@ -62,8 +61,8 @@ class CheckInViewModelTest {
     fun checkIn() {
         val response = "Vehicle was registered correctly"
         runBlocking {
-            Mockito.`when`(checkCapacity.invoke(car.type)).thenReturn(true)
             checkInViewModel.checkIn().observeForever(observer)
+            Mockito.`when`(checkCapacity.invoke(car.type)).thenReturn(true)
             checkInViewModel.checkInResponse(car)
             Mockito.verify(checkCapacity, Mockito.times(1)).invoke(car.type)
             Mockito.verify(checkIn, Mockito.times(1)).invoke(car)

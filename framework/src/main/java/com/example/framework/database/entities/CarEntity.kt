@@ -1,9 +1,8 @@
-package com.example.framework.db.entities
+package com.example.framework.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.domain.model.Car
-import java.util.*
 
 @Entity
 data class CarEntity(

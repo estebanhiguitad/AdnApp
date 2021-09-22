@@ -1,8 +1,7 @@
-package com.example.framework.db.dao
+package com.example.framework.database.dao
 
 import androidx.room.*
-import com.example.domain.model.Motorcycle
-import com.example.framework.db.entities.MotorcycleEntity
+import com.example.framework.database.entities.MotorcycleEntity
 
 @Dao
 interface IMotorcycleDao {

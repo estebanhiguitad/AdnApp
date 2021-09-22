@@ -11,12 +11,10 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 import java.lang.Exception
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class ParkingLotTest {
 
     @Mock

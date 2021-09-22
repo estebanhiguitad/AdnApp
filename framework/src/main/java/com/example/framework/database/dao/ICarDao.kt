@@ -1,10 +1,10 @@
-package com.example.framework.db.dao
+package com.example.framework.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.framework.db.entities.CarEntity
+import com.example.framework.database.entities.CarEntity
 
 @Dao
 interface ICarDao {
