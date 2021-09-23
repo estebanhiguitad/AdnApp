@@ -10,19 +10,11 @@ pipeline {
 
   stages{
 
-    stage('Unit Tests') {
+    stage('Tests') {
       steps{
         echo "------------>Unit Tests<------------"
         sh './gradlew clean'
-        sh './gradlew test'
-      }
-    }
-
-    stage('Functional Tests') {
-      steps{
-        echo "------------>Unit Tests<------------"
-        sh './gradlew clean'
-        sh './gradlew cAT'
+        sh './gradlew jacocoTestReport'
       }
     }
 
