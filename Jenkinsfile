@@ -18,6 +18,14 @@ pipeline {
       }
     }
 
+    stage('Functional Tests') {
+      steps{
+        echo "------------>Unit Tests<------------"
+        sh './gradlew clean'
+        sh './gradlew cAT'
+      }
+    }
+
     stage('Static Code Analysis') {
       steps{
         echo '------------>Análisis de código estático<------------'
