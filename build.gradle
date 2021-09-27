@@ -47,10 +47,19 @@ task jacocoRootReport(type: JacocoReport, dependsOn: ['app:connectedAndroidTest'
         xml.enabled true
         html.enabled true
     }
-    def appSourceDirectories = layout.files("${project(':app').projectDir}/src/main/java")
-    def appClassDirectories = layout.files("${project(':app').buildDir}/tmp/kotlin-classes/debug")
+
+    def appModuleExclusions = [
+            "**/R*.class",
+            "**/BuildConfig.*",
+            "**/Manifest"
+    ]
+
+    def appProject = project(':app')
+
+    def appSourceDirectories = layout.files("$appProject.projectDir/src/main/java")
+    def appClassDirectories = fileTree(dir: "$appProject.buildDir/tmp/kotlin-classes/debug", excludes: appModuleExclusions)
     def appExecutionData = fileTree(
-            dir: "${project(':app').buildDir}/outputs/code_coverage/debugAndroidTest/connected",
+            dir: "$appProject.buildDir/outputs/code_coverage/debugAndroidTest/connected",
             include: '*coverage.ec').visit {
         FileVisitDetails details -> details.file.name
     }
@@ -58,7 +67,7 @@ task jacocoRootReport(type: JacocoReport, dependsOn: ['app:connectedAndroidTest'
     sourceDirectories.setFrom(files([appSourceDirectories,
                                tasks.getByPath("domain:jacocoTestReport").sourceDirectories]))
 
-    classDirectories.setFrom(files([appClassDirectories,
+    classDirectories.setFrom(files([appClassDirectories.asPath,
                               tasks.getByPath("domain:jacocoTestReport").classDirectories]))
 
     executionData.setFrom(files([appExecutionData,
