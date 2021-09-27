@@ -14,7 +14,7 @@ pipeline {
       steps{
         echo "------------>Unit Tests<------------"
         sh './gradlew clean'
-        sh './gradlew jacocoRootReport'
+        sh './gradlew jacocoTestReport'
       }
     }
 
