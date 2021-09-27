@@ -25,6 +25,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug{
+            testCoverageEnabled true
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -37,37 +41,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-    tasks.withType(Test) {
-        jacoco.includeNoLocationClasses = true
-        jacoco.excludes = ['jdk.internal.*']
-        finalizedBy(jacocoTestReport)
-    }
 }
-
-jacoco {
-    toolVersion  "$jacocoVersion"
-}
-
-// Task to gather code coverage from multiple subprojects
-task jacocoTestReport(type: JacocoReport, dependsOn: [':domain:testDebugUnitTest',':app:testDebugUnitTest', 'connectedAndroidTest']){
-    def domain = project(':domain')
-    def directoriesToCoverage = layout.files("$buildDir/tmp/kotlin-classes/debug","$domain.buildDir/tmp/kotlin-classes/debug")
-    def mainSources = layout.files("$project.projectDir/src/main/java","$domain.projectDir/src/main/java")
-
-    sourceDirectories.setFrom(files([mainSources]))
-    classDirectories.setFrom(files([directoriesToCoverage]))
-    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec"
-    ]))
-
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-
-
 
 dependencies {
     implementation project(':domain')

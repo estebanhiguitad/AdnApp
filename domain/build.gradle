@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'jacoco'
 }
 
 android {
@@ -29,6 +30,22 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+task jacocoTestReport (type: JacocoReport, dependsOn: ['testDebugUnitTest']){
+    def directoriesToCoverage = layout.files("$buildDir/tmp/kotlin-classes/debug")
+    def mainSources = layout.files("$project.projectDir/src/main/java")
+
+    sourceDirectories.setFrom(files([mainSources]))
+    classDirectories.setFrom(files([directoriesToCoverage.asFileTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec"
+    ]))
+
+    reports {
+        xml.enabled true
+        html.enabled true
     }
 }
 
